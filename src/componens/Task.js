@@ -7,11 +7,15 @@ export default class Task extends React.Component {
         label: PropTypes.string
     }
     render() {
-        const {label, deleteEl,onChangeDone, done, time} = this.props;
+        const {label, deleteEl,onChangeDone, done, time, editing} = this.props;
         let classNames = 'view';
         if(done) {
              classNames+=" completed"
           }
+        let clazz = '';
+        if(!editing) {
+            clazz+='editing'
+        }
         const createdDate = new Date(time);
     return (
         <div>
@@ -26,8 +30,7 @@ export default class Task extends React.Component {
               <button className="icon icon-destroy"></button>
             </div>
           </li> */}
-          {/* <li className="editing">
-            <div className="view">
+            <div className={clazz}>
               <input className="toggle" type="checkbox"/>
               <label>
                 <span className="description">Editing task</span>
@@ -37,7 +40,6 @@ export default class Task extends React.Component {
               <button className="icon icon-destroy"></button>
             </div>
             <input type="text" className="edit" value="Editing task"/>
-          </li> */}
             <div className={classNames}>
               <input 
               className="toggle" 

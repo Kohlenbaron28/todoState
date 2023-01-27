@@ -8,7 +8,8 @@ export default class App extends React.Component {
      maxId = 100;
     state = {
         data: [],
-        filter: 'active'
+        filter: 'active',
+        editing: false
     }
     deleteItemFunc = (id) => {
         this.setState((state) => {
@@ -76,6 +77,11 @@ export default class App extends React.Component {
             }
         })
     }
+    editind = () => {
+        this.setState({
+            editind: true
+        })
+    }
     static defaultProps = {
         deleteItemFunc: () => {}
     }
@@ -90,6 +96,7 @@ export default class App extends React.Component {
     data={visibleItem}
     deleteItem={this.deleteItemFunc}
     changeDone={this.onToggleDone}
+    edit={this.editind}
     />
    <Footer 
     activeTodo={activeCount}
