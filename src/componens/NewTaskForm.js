@@ -1,8 +1,9 @@
 import React from 'react';
 
 export default class NewTaskForm extends React.Component {
+
     state = {
-        label: ''
+        label: '',
     }
     submitingForm = e => {
         e.preventDefault();
@@ -13,7 +14,7 @@ export default class NewTaskForm extends React.Component {
     }
     changeItem = (e) => {
         this.setState({
-            label: e.target.value
+            label: e.target.value,
         })
     }
     render() {

@@ -24,7 +24,7 @@ export default class App extends React.Component {
     createTodoItem(label) {
         return {
             label,
-            important: false,
+            time: new Date(),
             done: false,
             id: this.maxId++
         }
@@ -75,6 +75,9 @@ export default class App extends React.Component {
                 data: newData
             }
         })
+    }
+    static defaultProps = {
+        deleteItemFunc: () => {}
     }
   render() {
     const {data} = this.state;

@@ -1,12 +1,18 @@
 import React from 'react';
+import {formatDistanceToNow} from 'date-fns';
+import PropTypes from 'prop-types';
 
 export default class Task extends React.Component {
+    static propTypes = {
+        label: PropTypes.string
+    }
     render() {
-        const {label, deleteEl,onChangeDone, done} = this.props;
+        const {label, deleteEl,onChangeDone, done, time} = this.props;
         let classNames = 'view';
         if(done) {
              classNames+=" completed"
           }
+        const createdDate = new Date(time);
     return (
         <div>
              {/* <li className="completed">
@@ -40,7 +46,10 @@ export default class Task extends React.Component {
               />
               <label>
                 <span className="description">{label}</span>
-                <span className="created">created 5 minutes ago</span>
+                <span
+                 className="created"
+                 >created {formatDistanceToNow(createdDate, { includeSeconds: true })}
+                 </span>
               </label>
               <button className="icon icon-edit"></button>
               <button className="icon icon-destroy" onClick={deleteEl}></button>
@@ -48,4 +57,7 @@ export default class Task extends React.Component {
           
         </div>
     )}
+}
+Task.defaultProps = {
+    deleteEl: () => {}
 }
