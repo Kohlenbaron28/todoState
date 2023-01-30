@@ -1,25 +1,25 @@
 import React from 'react';
-import {formatDistanceToNow} from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
 export default class Task extends React.Component {
-    static propTypes = {
-        label: PropTypes.string
+  static propTypes = {
+    label: PropTypes.string,
+  };
+  render() {
+    const { label, deleteEl, onChangeDone, done, time, editing } = this.props;
+    let classNames = 'view';
+    if (done) {
+      classNames += ' completed';
     }
-    render() {
-        const {label, deleteEl,onChangeDone, done, time, editing} = this.props;
-        let classNames = 'view';
-        if(done) {
-             classNames+=" completed"
-          }
-        let clazz = '';
-        if(!editing) {
-            clazz+='editing'
-        }
-        const createdDate = new Date(time);
+    let clazz = '';
+    if (!editing) {
+      clazz += 'editing';
+    }
+    const createdDate = new Date(time);
     return (
-        <div>
-             {/* <li className="completed">
+      <div>
+        {/* <li className="completed">
             <div className="view">
               <input className="toggle" type="checkbox"/>
               <label>
@@ -30,36 +30,29 @@ export default class Task extends React.Component {
               <button className="icon icon-destroy"></button>
             </div>
           </li> */}
-            <div className={clazz}>
-              <input className="toggle" type="checkbox"/>
-              <label>
-                <span className="description">Editing task</span>
-                <span className="created">created 5 minutes ago</span>
-              </label>
-              <button className="icon icon-edit"></button>
-              <button className="icon icon-destroy"></button>
-            </div>
-            <input type="text" className="edit" value="Editing task"/>
-            <div className={classNames}>
-              <input 
-              className="toggle" 
-              type="checkbox"
-              onClick={onChangeDone}
-              />
-              <label>
-                <span className="description">{label}</span>
-                <span
-                 className="created"
-                 >created {formatDistanceToNow(createdDate, { includeSeconds: true })}
-                 </span>
-              </label>
-              <button className="icon icon-edit"></button>
-              <button className="icon icon-destroy" onClick={deleteEl}></button>
-            </div>
-          
+        <div className={clazz}>
+          <input className="toggle" type="checkbox" />
+          <label>
+            <span className="description">Editing task</span>
+            <span className="created">created 5 minutes ago</span>
+          </label>
+          <button className="icon icon-edit"></button>
+          <button className="icon icon-destroy"></button>
         </div>
-    )}
+        <input type="text" className="edit" value="Editing task" />
+        <div className={classNames}>
+          <input className="toggle" type="checkbox" onClick={onChangeDone} />
+          <label>
+            <span className="description">{label}</span>
+            <span className="created">created {formatDistanceToNow(createdDate, { includeSeconds: true })}</span>
+          </label>
+          <button className="icon icon-edit"></button>
+          <button className="icon icon-destroy" onClick={deleteEl}></button>
+        </div>
+      </div>
+    );
+  }
 }
 Task.defaultProps = {
-    deleteEl: () => {}
-}
+  deleteEl: () => {},
+};
