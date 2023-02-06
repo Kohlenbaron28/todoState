@@ -6,6 +6,9 @@ export default class Task extends React.Component {
   static propTypes = {
     label: PropTypes.string,
   };
+  state = {
+    time: 0,
+  };
   render() {
     const { label, deleteEl, onChangeDone, done, time, editing } = this.props;
     let classNames = 'view';
@@ -44,6 +47,15 @@ export default class Task extends React.Component {
           <input className="toggle" type="checkbox" onClick={onChangeDone} />
           <label>
             <span className="description">{label}</span>
+            <span className="description">
+              <button className="icon icon-play" onClick={this.props.startTimer}></button>
+              <button className="icon icon-pause" onClick={this.props.stopTimer}></button>
+              <span>{`${Math.floor(this.props.timer / 60)
+                .toString()
+                .padStart(2, '0')}:${Math.floor(this.props.timer % 60)
+                .toString()
+                .padStart(2, '0')}`}</span>
+            </span>
             <span className="created">created {formatDistanceToNow(createdDate, { includeSeconds: true })}</span>
           </label>
           <button className="icon icon-edit"></button>

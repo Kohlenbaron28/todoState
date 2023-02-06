@@ -12,6 +12,28 @@ export default class App extends React.Component {
     filter: 'active',
     editing: false,
   };
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.setState(({ data }) => {
+        let newArr = data.map((el) => {
+          if (el.timer === 0) {
+            return el;
+          }
+          if (!el.pause) {
+            el.timer = el.timer - 1;
+          }
+          return el;
+        });
+        return {
+          data: newArr,
+        };
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   deleteItemFunc = (id) => {
     this.setState((state) => {
       let newArr = [...state.data];
@@ -23,16 +45,18 @@ export default class App extends React.Component {
       };
     });
   };
-  createTodoItem(label) {
+  createTodoItem(label, timer) {
     return {
       label,
       time: new Date(),
       done: false,
       id: this.maxId++,
+      timer: timer,
+      pause: false,
     };
   }
-  addItem = (text) => {
-    const newItem = this.createTodoItem(text);
+  addItem = (text, timer) => {
+    const newItem = this.createTodoItem(text, timer);
     this.setState((state) => {
       let newArr = [...state.data, newItem];
       return {
@@ -79,8 +103,33 @@ export default class App extends React.Component {
       editind: true,
     });
   };
+  clearInterval() {
+    this.clearInterval(this.onChangeTimer);
+  }
   static defaultProps = {
     deleteItemFunc: () => {},
+  };
+
+  stopTimer = (id) => {
+    this.setState(({ data }) => {
+      const idx = data.findIndex((el) => el.id === id);
+      const newObj = [{ ...data[idx], pause: true }];
+      const newData = [...data.slice(0, idx), ...newObj, ...data.slice(idx + 1)];
+      return {
+        data: newData,
+      };
+    });
+  };
+
+  startTimer = (id) => {
+    this.setState(({ data }) => {
+      const idx = data.findIndex((el) => el.id === id);
+      const newObj = [{ ...data[idx], pause: false }];
+      const newData = [...data.slice(0, idx), ...newObj, ...data.slice(idx + 1)];
+      return {
+        data: newData,
+      };
+    });
   };
   render() {
     const { data } = this.state;
@@ -94,6 +143,9 @@ export default class App extends React.Component {
           deleteItem={this.deleteItemFunc}
           changeDone={this.onToggleDone}
           edit={this.editind}
+          min={this.state.min}
+          stopTimer={this.stopTimer}
+          startTimer={this.startTimer}
         />
         <Footer
           activeTodo={activeCount}
