@@ -74,10 +74,6 @@ export default class NewTaskForm extends React.Component {
             autoFocus
           ></input>
         </form>
-        {/* <div>
-          <button onClick={this.startTimer}>Start</button>
-          m: {this.state.time.m} s: {this.state.time.s}
-        </div> */}
       </div>
     );
   }
