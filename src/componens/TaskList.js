@@ -4,7 +4,7 @@ import Task from './Task';
 
 export default function TaskList({ data, deleteItem, changeDone, startTimer, stopTimer }) {
   const elements = data.map((item) => {
-    const { id, time, editing, ...itemProps } = item;
+    const { id, time, ...itemProps } = item;
     return (
       <li key={id}>
         <Task
@@ -12,7 +12,6 @@ export default function TaskList({ data, deleteItem, changeDone, startTimer, sto
           deleteEl={() => deleteItem(id)}
           onChangeDone={() => changeDone(id)}
           time={time}
-          editing={editing}
           stopTimer={() => stopTimer(id)}
           startTimer={() => startTimer(id)}
         />

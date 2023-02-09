@@ -12,7 +12,6 @@ let max = 1;
 export default function App() {
   const [data, setData] = React.useState([]);
   const [filterVal, setFilterVal] = React.useState('active');
-  // const [maxId, setmaxId] = React.useState(100);
 
   React.useEffect(() => {
     let interval = setInterval(() => {
@@ -78,7 +77,6 @@ export default function App() {
   };
   const onFilterChange = (filter) => {
     setFilterVal(filter);
-    // this.setState({ filter });
   };
   const clearing = () => {
     const newData = data.filter((el) => !el.done);
@@ -110,7 +108,6 @@ export default function App() {
         data={visibleItem}
         deleteItem={deleteItemFunc}
         changeDone={onToggleDone}
-        // min={min}
         stopTimer={stopTimer}
         startTimer={startTimer}
       />

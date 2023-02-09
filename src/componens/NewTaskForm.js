@@ -4,15 +4,7 @@ export default function NewTaskForm({ addItem }) {
   const [min, setMin] = React.useState('');
   const [sec, setSec] = React.useState('');
   const [title, setTitle] = React.useState('');
-  //   const submitingForm = (e) => {
-  //     e.preventDefault();
-  //     this.props.addItem(label, minuts, seconds);
-  //     this.setState({
-  //       label: '',
-  //       //   minuts: 0,
-  //       //   seconds: 0,
-  //     });
-  //   };
+
   const changeItem = (e) => {
     setTitle(e.target.value);
   };

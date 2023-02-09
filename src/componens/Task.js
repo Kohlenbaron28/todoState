@@ -2,28 +2,16 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 //import PropTypes from 'prop-types';
 
-export default function Task({ label, deleteEl, onChangeDone, done, time, editing, startTimer, stopTimer, timer }) {
+export default function Task({ label, deleteEl, onChangeDone, done, time, startTimer, stopTimer, timer }) {
   //const [time, setTime]=React.useState(0);
   let classNames = 'view';
   if (done) {
     classNames += ' completed';
   }
-  let clazz = '';
-  if (!editing) {
-    clazz += 'editing';
-  }
+
   const createdDate = new Date(time);
   return (
     <div>
-      <div className={clazz}>
-        <input className="toggle" type="checkbox" />
-        <label>
-          <span className="description">Editing task</span>
-          <span className="created">created 5 minutes ago</span>
-        </label>
-        <button className="icon icon-edit"></button>
-        <button className="icon icon-destroy"></button>
-      </div>
       <input type="text" className="edit" value="Editing task" />
       <div className={classNames}>
         <input className="toggle" type="checkbox" onClick={onChangeDone} />
